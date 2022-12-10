@@ -1,11 +1,10 @@
-// En user kan se ut som följande
 
 const users = [
     {id: 1, firstName: "John", lastName: "Doe", email: "JohnDoe@gmail.com"}
 ]
 module.exports = users
 
-// och en lista av produkter som följande
+
 const products = [
     { tag: "featuredProducts", articleNumber: "d3984cd9-f121-4981-8d03-83198d441379", name: "Black coat", description: "", category: "Coats", price: 95, rating: 4, imageName: "https://win22imgstorage.blob.core.windows.net/images/black-coat.png"},
     { tag: "", articleNumber: "20222c00-4548-4149-9efd-49883e9f57b5", name: "Black dress", description: "", category: "Dresses", price: 88, rating: 5, imageName: "https://win22imgstorage.blob.core.windows.net/images/black-dress.png"},
@@ -31,3 +30,4 @@ const products = [
     { tag: "", articleNumber: "684a9d63-c7e2-446b-99df-eafdd31426b1", name: "Winter boots", description: "", category: "Shoes", price: 85, rating: 2, imageName: "https://win22imgstorage.blob.core.windows.net/images/winter-boots.png"}
 ]
 module.exports = products
+
