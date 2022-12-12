@@ -7,8 +7,9 @@ const productSchema = mongoose.Schema ({
     price: {type: Number, required: true},
     category: {type: String},
     tag: {type: String},
+    imageName: {type: String},
     rating: {type: Number},
-    imageName: {type: String}
+    __v: { type: Number, select: false}
 })
 
 // Här är modellen/schemat för varje produkt, 

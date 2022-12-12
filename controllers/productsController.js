@@ -3,7 +3,7 @@ const controller = express.Router()
 const productSchema = require('../schemas/productSchema')
 
 
-// unsecured routes
+// unsecured routes/ hämtar produkter
 
 controller.route('/').get(async(req, res) => {
     const products = []
@@ -68,7 +68,6 @@ controller.route('/:tag/:take').get(async (req, res) => {
         res.status(400).json()
 })
 
-// find, limit och findById är alltså de funktioner (?) som bestämmer vad som görs mha de följande parametrarna typ. 
 
 controller.route('/product/details/:articleNumber').get(async (req, res) => {
     const product = await productSchema.findById(req.params.articleNumber)
@@ -86,5 +85,73 @@ controller.route('/product/details/:articleNumber').get(async (req, res) => {
     } else 
         res.status(404).json()
 })
+
+// secured routes/ post och delete
+
+controller.route('/').post(async (req, res) => {
+    const { name, description, price, category, tag, imageName, rating } = req.body
+
+    if (!name || !price)
+        res.status(400).json({text: 'Name and price is required.'})
+
+    const item_exists = await productSchema.findOne({name})
+    if (item_exists)
+        res.status(409).json({text: 'A product with the same name already exists.'})
+    else {
+        productSchema.create ({
+            name, 
+            description, 
+            price,
+            category,
+            tag,
+            imageName,
+            rating,
+        }, (err, product) => {
+
+            if(err)
+            res.status(500).json({
+                text: 'Something went wrong when we tried to create the product',
+                errMessage: err.message,
+            })
+            
+            res.status(201).json({text: `Product with article number ${product._id} was created successfully.`})
+        })
+    }
+})
+
+// controller.route('/:articlenumber').put(async (req, res) => {
+//     try {
+//         const id = req.params.id
+//         const updates = req.body
+//         const options = {new: true}
+
+//         const result = await productSchema.findByIdAndUpdate(articleNumber, updates, options)
+//         res.send(result);
+//     } catch (err) {
+//         console.log(error.message)
+//     }
+// })
+
+// Okej så jag tror att felet är att den behöver ha bodyn att uppdatera i själva contorllern, som det ser ut i post-delen
+// ELLER så ska den efterlinka delete-delen vilket betyder att den inte behöver bodyn, men egentligen behöver den ju en body för man 
+// requestar ju en body från postman med uppdateringen, så det borde vara en body i updatedelen också. Aja nåt i den stilen kanske. 
+
+
+controller.route('/:articlenumber').delete(async (req, res) => {
+    if(!req.params.articlenumber)
+        res.status(400).json('No article number was specified')
+    else {
+        const item = await productSchema.findById(req.params.articlenumber)
+        if (item) {
+            await productSchema.remove(item)
+            res.status(200).json({text: `Product with article number ${req.params.articlenumber} was deleted successfully`})
+        } else {
+            res.status(404).json({text: `Products with article number ${req.params.articlenumber} was not found.` })
+        }
+    }
+})
+
+// skapa uppdateringscontrollern
+
 
 module.exports = controller

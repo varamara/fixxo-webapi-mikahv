@@ -31,3 +31,27 @@ const products = [
 ]
 module.exports = products
 
+const products2 = [
+    { name: "Black coat", description: "", price: 95, category: "Coats", tag: "featuredProducts", imageName: "https://win22imgstorage.blob.core.windows.net/images/black-coat.png", rating: 4 },
+    { name: "Black dress", description: "", price: 88, category: "Dresses",  tag: "featuredProducts", imageName: "https://win22imgstorage.blob.core.windows.net/images/black-dress.png", rating: 5 },
+    { name: "Black top & pants set", description: "", price: 107, category: "Sets", tag: "featuredProducts", imageName: "https://win22imgstorage.blob.core.windows.net/images/black-set.png", rating: 3 }, 
+    { name: "White top & black pants set", description: "", price: 115, category: "Sets", tag: "featuredProducts", imageName: "https://win22imgstorage.blob.core.windows.net/images/black-white-set.png", rating: 2 },
+    { name: "Blue jacket", description: "", price: 299, category: "Jackets", tag: "featuredProducts", imageName: "https://win22imgstorage.blob.core.windows.net/images/blue-jacket.png", rating: 5 },
+    { name: "Blue hoody & pants", description: "", price: 150, category: "Sets", tag: "featuredProducts", imageName: "https://win22imgstorage.blob.core.windows.net/images/blue-set.png", rating: 5 },
+    { name: "Blue t-shirt", description: "", price: 25, category: "T-Shirts", tag: "featuredProducts", imageName: "https://win22imgstorage.blob.core.windows.net/images/blue-tshirt.png", rating: 5 },
+    { name: "Brown sweater", description: "", price: 35, category: "Sweaters", tag: "featuredProducts", imageName: "https://win22imgstorage.blob.core.windows.net/images/brown-sweater.png", rating: 4 },
+    { name: "Brown watch", description: "", price: 150, category: "Watches", tag: "dealsProducts_1", imageName: "https://win22imgstorage.blob.core.windows.net/images/brown-watch.png", rating: 3 },
+    { name: "Stiletto shoes", description: "", price: 89, category: "Shoes", tag: "dealsProducts_1", imageName: "https://win22imgstorage.blob.core.windows.net/images/chrome-shoe.png", rating: 3},
+    { name: "Gray t-shirt", description: "", price: 15, category: "T-Shirts", tag: "dealsProducts_1", imageName: "https://win22imgstorage.blob.core.windows.net/images/gray-tshirt.png", rating: 3 },
+    { name: "Jeans dress", description: "", price: 55, category: "Jeans", tag: "dealsProducts_1", imageName: "https://win22imgstorage.blob.core.windows.net/images/jeans-dress.png", rating: 4 },
+    { name: "Jeans jacket & pants", description: "", price: 110, category: "Sets", tag: "dealsProducts_2",imageName: "https://win22imgstorage.blob.core.windows.net/images/jeans-set.png", rating: 4 },
+    { name: "Olive sweater", description: "", price: 19, category: "Sweaters", tag: "dealsProducts_2", imageName: "https://win22imgstorage.blob.core.windows.net/images/olive-sweater.png", rating: 2 },
+    { name: "Multicolor t-shirt", description: "", price: 25, category: "T-shirts", tag: "dealsProducts_2", imageName: "https://win22imgstorage.blob.core.windows.net/images/multicolor-tshirt.png", rating: 2 },
+    { name: "Purple handbag", description: "", price: 99, category: "Bags", tag: "dealsProducts_2", imageName: "https://win22imgstorage.blob.core.windows.net/images/purple-bag.png", rating: 5 },
+    { name: "Red handbag", description: "", price: 105, category: "Bags", tag: "", imageName: "https://win22imgstorage.blob.core.windows.net/images/red-bag.png", rating: 5 },
+    { name: "Red dress", description: "", price: 67, category: "Dresses", tag: "", imageName: "https://win22imgstorage.blob.core.windows.net/images/red-dress.png", rating: 3 },
+    { name: "Striped top", description: "", price: 45, category: "Tops", tag: "", imageName: "https://win22imgstorage.blob.core.windows.net/images/striped-top.png", rating: 4 },
+    { name: "Striped pink pants", description: "", price: 36, category: "Pants", tag: "", imageName: "https://win22imgstorage.blob.core.windows.net/images/striped-pants.png", rating: 2 },
+    { name: "White seater", description: "", price: 25, category: "Sweaters", tag: "", imageName: "https://win22imgstorage.blob.core.windows.net/images/white-sweater.png", rating: 2 },
+    { name: "Winter boots", description: "", price: 85, category: "Shoes", tag: "", imageName: "https://win22imgstorage.blob.core.windows.net/images/winter-boots.png", rating: 2 }
+]
