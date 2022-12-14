@@ -17,7 +17,7 @@ app.use(bodyParser.json())
 // routes/controllers
 
 app.use('/api/products', require('./controllers/productsController'))
-app.use('/api/users', require('./controllers/usersController'))
+app.use('/api/authentication', require('./controllers/authenticationController'))
 
 // initialize
 

@@ -1,4 +1,6 @@
 const express = require('express')
+const { isValidObjectId } = require('mongoose')
+const { db, findByIdAndUpdate } = require('../schemas/productSchema')
 const controller = express.Router()
 const productSchema = require('../schemas/productSchema')
 
@@ -68,8 +70,7 @@ controller.route('/:tag/:take').get(async (req, res) => {
         res.status(400).json()
 })
 
-
-controller.route('/product/details/:articleNumber').get(async (req, res) => {
+controller.route('details/:articleNumber').get(async (req, res) => {
     const product = await productSchema.findById(req.params.articleNumber)
     if (product){
         res.status(200).json({
@@ -119,23 +120,24 @@ controller.route('/').post(async (req, res) => {
     }
 })
 
-// controller.route('/:articlenumber').put(async (req, res) => {
-//     try {
-//         const id = req.params.id
-//         const updates = req.body
-//         const options = {new: true}
+// update
 
-//         const result = await productSchema.findByIdAndUpdate(articleNumber, updates, options)
-//         res.send(result);
-//     } catch (err) {
-//         console.log(error.message)
-//     }
-// })
+controller.route('/:articlenumber').put(async (req, res) => {
+    if(!req.params.articlenumber)
+        res.status(400).json('No article number was specified')
+    else {
+        const product = await productSchema.findByIdAndUpdate(req.params.articlenumber, req.body, { new: true })
+        if(!product) {
+            return res.status(404).json({ text: 'product not found'})
+        } else {
+            
+        res.status(200).json(product, {text: `Product with article number ${req.params.articlenumber} was updated successfully`})
+        }
+    }
+})
 
-// Okej så jag tror att felet är att den behöver ha bodyn att uppdatera i själva contorllern, som det ser ut i post-delen
-// ELLER så ska den efterlinka delete-delen vilket betyder att den inte behöver bodyn, men egentligen behöver den ju en body för man 
-// requestar ju en body från postman med uppdateringen, så det borde vara en body i updatedelen också. Aja nåt i den stilen kanske. 
 
+// delete 
 
 controller.route('/:articlenumber').delete(async (req, res) => {
     if(!req.params.articlenumber)
@@ -151,7 +153,6 @@ controller.route('/:articlenumber').delete(async (req, res) => {
     }
 })
 
-// skapa uppdateringscontrollern
 
 
 module.exports = controller

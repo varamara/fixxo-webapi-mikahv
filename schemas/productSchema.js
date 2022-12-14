@@ -12,7 +12,4 @@ const productSchema = mongoose.Schema ({
     __v: { type: Number, select: false}
 })
 
-// Här är modellen/schemat för varje produkt, 
-// den collection om hämtas nu är "products"
-
 module.exports = mongoose.model("products", productSchema)
