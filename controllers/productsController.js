@@ -1,11 +1,9 @@
 const express = require('express')
-const { isValidObjectId } = require('mongoose')
-const { db, findByIdAndUpdate } = require('../schemas/productSchema')
 const controller = express.Router()
 const productSchema = require('../schemas/productSchema')
 
 
-// unsecured routes/ hämtar produkter
+// Get all products
 
 controller.route('/').get(async(req, res) => {
     const products = []
@@ -28,6 +26,8 @@ controller.route('/').get(async(req, res) => {
         res.status(400).json()
 })
 
+// Get products from category
+
 controller.route('/:tag').get(async (req, res) => {
     const products = []
     const list = await productSchema.find({ tag: req.params.tag })
@@ -48,6 +48,8 @@ controller.route('/:tag').get(async (req, res) => {
     } else 
         res.status(400).json()
 })
+
+// Get a number of products from category
 
 controller.route('/:tag/:take').get(async (req, res) => {
     const products = []
@@ -70,7 +72,9 @@ controller.route('/:tag/:take').get(async (req, res) => {
         res.status(400).json()
 })
 
-controller.route('details/:articleNumber').get(async (req, res) => {
+// Get number with certain articlenumber
+
+controller.route('/product/details/:articleNumber').get(async (req, res) => {
     const product = await productSchema.findById(req.params.articleNumber)
     if (product){
         res.status(200).json({
@@ -87,7 +91,7 @@ controller.route('details/:articleNumber').get(async (req, res) => {
         res.status(404).json()
 })
 
-// secured routes/ post och delete
+// Create
 
 controller.route('/').post(async (req, res) => {
     const { name, description, price, category, tag, imageName, rating } = req.body
@@ -114,45 +118,40 @@ controller.route('/').post(async (req, res) => {
                 text: 'Something went wrong when we tried to create the product',
                 errMessage: err.message,
             })
-            
             res.status(201).json({text: `Product with article number ${product._id} was created successfully.`})
         })
     }
 })
 
-// update
+// Update
 
-controller.route('/:articlenumber').put(async (req, res) => {
-    if(!req.params.articlenumber)
+controller.route('/:articleNumber').put(async (req, res) => {
+    if(!req.params.articleNumber)
         res.status(400).json('No article number was specified')
     else {
-        const product = await productSchema.findByIdAndUpdate(req.params.articlenumber, req.body, { new: true })
+        const product = await productSchema.findByIdAndUpdate(req.params.articleNumber, req.body, { new: true })
         if(!product) {
-            return res.status(404).json({ text: 'product not found'})
-        } else {
-            
-        res.status(200).json(product, {text: `Product with article number ${req.params.articlenumber} was updated successfully`})
+            return res.status(404).json({ text: `Product with article number ${req.params.articleNumber} was not found.`})
+        } else {  
+            res.status(200).json({text: `Product with article number ${req.params.articleNumber} was updated successfully.`})
         }
-    }
+    }  
 })
 
+// Delete 
 
-// delete 
-
-controller.route('/:articlenumber').delete(async (req, res) => {
-    if(!req.params.articlenumber)
+controller.route('/:articleNumber').delete(async (req, res) => {
+    if(!req.params.articleNumber)
         res.status(400).json('No article number was specified')
     else {
-        const item = await productSchema.findById(req.params.articlenumber)
+        const item = await productSchema.findById(req.params.articleNumber)
         if (item) {
             await productSchema.remove(item)
-            res.status(200).json({text: `Product with article number ${req.params.articlenumber} was deleted successfully`})
+            res.status(200).json({text: `Product with article number ${req.params.articleNumber} was deleted successfully.`})
         } else {
-            res.status(404).json({text: `Products with article number ${req.params.articlenumber} was not found.` })
+            res.status(404).json({text: `Products with article number ${req.params.articleNumber} was not found.` })
         }
     }
 })
-
-
 
 module.exports = controller
